@@ -196,9 +196,8 @@ resource "null_resource" "ssh-agent" {
     }
 
     provisioner "local-exec" {
-        command = "`eval ssh-agent`; ssh-add"
+        command = "eval `ssh-agent`; ssh-add"
     }
-
 }
 
 
