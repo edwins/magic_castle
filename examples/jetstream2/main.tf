@@ -149,7 +149,7 @@ variable "cacao_whitelist_ips" {
 variable "cacao_public_key" {
   type = string
   description = "if set, will be an additional key used"
-  default = ""
+  default = "~/.ssh/id_rsa.pub"
 }
 
 module "openstack" {
