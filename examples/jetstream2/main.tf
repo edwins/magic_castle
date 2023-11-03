@@ -146,6 +146,12 @@ variable "cacao_whitelist_ips" {
   default = ""
 }
 
+variable "cacao_public_key" {
+  type = string
+  description = "if set, will be an additional key used"
+  default = ""
+}
+
 module "openstack" {
   source         = "./openstack"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
@@ -201,8 +207,6 @@ data "openstack_compute_keypair_v2" "kp" {
   count = var.keypair == "" ? 0 : 1
   name = var.keypair
 }
-
-
 
 output "accounts" {
   value = module.openstack.accounts
