@@ -194,8 +194,6 @@ data "openstack_compute_keypair_v2" "kp" {
   name = var.keypair
 }
 
-
-
 output "accounts" {
   value = module.openstack.accounts
 }
