@@ -173,6 +173,8 @@ module "openstack" {
 
   # generate_ssh_key = true
 
+  generate_ssh_key = true
+
   nb_users = var.guest_users_count
   # Shared password, randomly chosen if blank
   guest_passwd = var.guest_users_password
@@ -187,10 +189,25 @@ fail2ban::ignoreip:
 EOT
 }
 
+resource "null_resource" "ssh-agent" {
+
+    triggers = {
+        always_run = "${timestamp()}"
+    }
+
+    provisioner "local-exec" {
+        command = "`eval ssh-agent`; ssh-add"
+    }
+
+}
+
+
 data "openstack_compute_keypair_v2" "kp" {
   count = var.keypair == "" ? 0 : 1
   name = var.keypair
 }
+
+
 
 output "accounts" {
   value = module.openstack.accounts
