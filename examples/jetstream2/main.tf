@@ -189,18 +189,6 @@ fail2ban::ignoreip:
 EOT
 }
 
-resource "null_resource" "ssh-agent" {
-
-    triggers = {
-        always_run = "${timestamp()}"
-    }
-
-    provisioner "local-exec" {
-        command = "eval `ssh-agent`; ssh-add"
-    }
-}
-
-
 data "openstack_compute_keypair_v2" "kp" {
   count = var.keypair == "" ? 0 : 1
   name = var.keypair
