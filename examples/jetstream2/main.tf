@@ -128,11 +128,11 @@ variable "power_state" {
   default = "active"
 }
 
-variable "cacao_user_data" {
-  type = string
-  description = "cloud init script; not currently used"
-  default = ""
-}
+# variable "cacao_user_data" {
+#   type = string
+#   description = "cloud init script; not currently used"
+#   default = ""
+# }
 
 variable "cacao_whitelist_ips" {
   type = string
@@ -195,10 +195,10 @@ fail2ban::ignoreip:
 EOT
 }
 
-# data "openstack_compute_keypair_v2" "kp" {
-#   count = var.keypair == "" ? 0 : 1
-#   name = var.keypair
-# }
+data "openstack_compute_keypair_v2" "kp" {
+  count = var.keypair == "" ? 0 : 1
+  name = var.keypair
+}
 
 output "accounts" {
   value = module.openstack.accounts
