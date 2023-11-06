@@ -146,6 +146,12 @@ variable "cacao_whitelist_ips" {
 #   default = ""
 # }
 
+variable "cacao_whitelist_ips" {
+  type = string
+  description = "comma-separated list of ips to whitelist to fail2ban"
+  default = ""
+}
+
 module "openstack" {
   source         = "./openstack"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
@@ -230,7 +236,6 @@ resource "null_resource" "cacao_helper_scripts" {
   connection {
     user        = local.system_user
     host        = module.openstack.public_ip.login1
-  }
   provisioner "file" {
     content = <<-EOT
 #!/bin/bash
@@ -309,15 +314,12 @@ EOT
   }
 }
 
-
 ## Uncomment to register your domain name with CloudFlare
 # module "dns" {
 #   source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare"
 #   name             = module.openstack.cluster_name
 #   public_instances = module.openstack.public_instances
 #   ssh_private_key  = module.openstack.ssh_private_key
-#   sudoer_username  = module.openstack.accounts.sudoer.username
-# }
 
 ## Uncomment to register your domain name with Google Cloud
 # module "dns" {
