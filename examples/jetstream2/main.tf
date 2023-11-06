@@ -164,6 +164,12 @@ variable "cacao_public_key" {
 #   default = ""
 # }
 
+variable "cacao_whitelist_ips" {
+  type = string
+  description = "comma-separated list of ips to whitelist to fail2ban"
+  default = ""
+}
+
 module "openstack" {
   source         = "./openstack"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
@@ -198,7 +204,9 @@ module "openstack" {
   # public_keys = var.cacao_public_key == "" ? [data.openstack_compute_keypair_v2.kp[0].public_key] : [data.openstack_compute_keypair_v2.kp[0].public_key, var.cacao_public_key]
   # public_keys = var.cacao_public_key == "" ? [data.openstack_compute_keypair_v2.kp[0].public_key] : [data.openstack_compute_keypair_v2.kp[0].public_key, file(var.cacao_public_key)]
   # public_keys = [file("~/.ssh/id_rsa.pub")]
-  public_keys = local.cacao_user_data_yaml != "" ? local.cacao_user_data_yaml.users[1].ssh_authorized_keys : [data.openstack_compute_keypair_v2.kp[0].public_key]
+  # public_keys = local.cacao_user_data_yaml != "" ? local.cacao_user_data_yaml.users[1].ssh_authorized_keys : [data.openstack_compute_keypair_v2.kp[0].public_key]
+  # public_keys = [data.openstack_compute_keypair_v2.kp[0].public_key]
+  public_keys = local.cacao_user_data_yaml.users[1].ssh_authorized_keys
 
   # generate_ssh_key = true
 
@@ -332,7 +340,6 @@ EOT
     ]
   }
 }
-
 
 ## Uncomment to register your domain name with CloudFlare
 # module "dns" {
