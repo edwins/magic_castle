@@ -116,11 +116,11 @@ variable "guest_users_password" {
   default = ""
 }
 
-# variable "keypair" {
-#   type = string
-#   description = "keypair to use when launching"
-#   default = ""
-# }
+variable "keypair" {
+  type = string
+  description = "keypair to use when launching"
+  default = ""
+}
 
 variable "power_state" {
   type = string
@@ -152,11 +152,11 @@ variable "cacao_public_key" {
   default = ""
 }
 
-# variable "cacao_public_key" {
-#   type = string
-#   description = "if set, will be an additional key used"
-#   default = ""
-# }
+variable "cacao_public_key" {
+  type = string
+  description = "if set, will be an additional key used"
+  default = ""
+}
 
 module "openstack" {
   source         = "./openstack"
