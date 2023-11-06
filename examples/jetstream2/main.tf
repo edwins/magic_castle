@@ -116,11 +116,11 @@ variable "guest_users_password" {
   default = ""
 }
 
-# variable "keypair" {
-#   type = string
-#   description = "keypair to use when launching"
-#   default = ""
-# }
+variable "keypair" {
+  type = string
+  description = "keypair to use when launching"
+  default = ""
+}
 
 variable "power_state" {
   type = string
@@ -195,10 +195,10 @@ fail2ban::ignoreip:
 EOT
 }
 
-# data "openstack_compute_keypair_v2" "kp" {
-#   count = var.keypair == "" ? 0 : 1
-#   name = var.keypair
-# }
+data "openstack_compute_keypair_v2" "kp" {
+  count = var.keypair == "" ? 0 : 1
+  name = var.keypair
+}
 
 output "accounts" {
   value = module.openstack.accounts
@@ -228,7 +228,6 @@ resource "null_resource" "cacao_helper_scripts" {
     module.openstack.public_ip
   ]
   connection {
-    type        = "ssh"
     user        = local.system_user
     host        = module.openstack.public_ip.login1
   }
@@ -310,12 +309,11 @@ EOT
   }
 }
 
+
 ## Uncomment to register your domain name with CloudFlare
 # module "dns" {
 #   source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare"
 #   name             = module.openstack.cluster_name
-#   domain           = module.openstack.domain
-#   bastions         = module.openstack.bastions
 #   public_instances = module.openstack.public_instances
 #   ssh_private_key  = module.openstack.ssh_private_key
 #   sudoer_username  = module.openstack.accounts.sudoer.username
