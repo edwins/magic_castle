@@ -116,11 +116,11 @@ variable "guest_users_password" {
   default = ""
 }
 
-# variable "keypair" {
-#   type = string
-#   description = "keypair to use when launching"
-#   default = ""
-# }
+variable "keypair" {
+  type = string
+  description = "keypair to use when launching"
+  default = ""
+}
 
 variable "power_state" {
   type = string
