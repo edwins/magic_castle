@@ -158,12 +158,6 @@ variable "cacao_public_key" {
   default = ""
 }
 
-# variable "cacao_public_key" {
-#   type = string
-#   description = "if set, will be an additional key used"
-#   default = ""
-# }
-
 variable "cacao_whitelist_ips" {
   type = string
   description = "comma-separated list of ips to whitelist to fail2ban"
