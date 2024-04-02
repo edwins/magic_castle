@@ -161,6 +161,9 @@ module "openstack" {
   # Refer to Magic Castle Documentation - Enable Magic Castle Autoscaling
   pool = var.pool
 
+  # For jetstream, we only need to concern ourselves with the auto-allocated-network
+  subnet_id = data.openstack_networking_subnet_v2.subnet.id
+
   volumes = {
     nfs = {
       home     = { size = var.nfs_home_size }
@@ -301,6 +304,17 @@ EOT
     ]
   }
 }
+
+# This is only needed in jetstream2
+data "openstack_networking_network_v2" "int_network" {
+  name = "auto_allocated_network"
+}
+
+data "openstack_networking_subnet_v2" "subnet" {
+  network_id = data.openstack_networking_network_v2.int_network.id
+  ip_version = 4
+}
+
 
 ## Uncomment to register your domain name with CloudFlare
 # module "dns" {
