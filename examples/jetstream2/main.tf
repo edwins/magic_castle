@@ -165,7 +165,7 @@ module "openstack" {
     nfs = {
       home     = { size = var.nfs_home_size }
       project  = { size = var.nfs_project_size }
-      scratch  = { size = var.nfs_home_size }
+      scratch  = { size = var.nfs_scratch_size }
     }
   }
 
