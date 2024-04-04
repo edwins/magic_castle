@@ -344,7 +344,9 @@ EOT
     inline = [
       "chmod +x /tmp/mccheck /${local.system_user}/.ssh/rc",
       "sudo mv /tmp/mccheck /usr/local/bin/",
-      "sudo mv /tmp/91-${local.slurm_user} /etc/sudoers.d/"
+      "sudo mv /tmp/91-${local.slurm_user} /etc/sudoers.d/",
+      "sudo chown root.root /etc/sudoers.d/91-${local.slurm_user}",
+      "sudo chmod go= /etc/sudoers.d/91-${local.slurm_user}"
     ]
   }
 }
