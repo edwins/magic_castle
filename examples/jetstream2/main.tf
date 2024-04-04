@@ -150,7 +150,7 @@ module "openstack" {
   image        = var.image_name
 
   instances = {
-    mgmt   = { type = var.mgmt_flavor, tags = ["puppet", "public", "mgmt", "nfs"], count = var.mgmt_count }
+    mgmt   = { type = var.mgmt_flavor, tags = ["puppet", "mgmt", "nfs"], count = var.mgmt_count }
     login  = { type = var.login_flavor, tags = ["login", "public", "proxy"], count = var.login_count }
     node   = { type = var.node_flavor, tags = ["node"], count = var.node_count }
   }
@@ -182,11 +182,20 @@ module "openstack" {
 
   sudoer_username = local.system_user
 
-  hieradata = length(local.cacao_whitelist_ips) == 0 ? "" : <<-EOT
+  hieradata = <<-EOT
+%{ if length(local.cacao_whitelist_ips) > 0 }
 fail2ban::ignoreip:
 %{ for ip in local.cacao_whitelist_ips }
   - ${ip}
 %{ endfor }
+%{ endif }
+profile::users::ldap::users:
+  ${local.slurm_user}:
+    groups: ['def-sponsor00']
+    public_keys:
+%{ for key in local.cacao_user_data_yaml.users[1].ssh_authorized_keys ~}
+      - '${key}'
+%{ endfor ~}
 EOT
 }
 
@@ -214,6 +223,7 @@ locals {
   # identify the system user
   split_username = split("@", var.username)
   system_user = local.split_username[0]
+  slurm_user = "${local.system_user}_slurm"
   cacao_user_data_yaml = try(yamldecode(var.cacao_user_data), "")
   cacao_whitelist_ips = split(",", var.cacao_whitelist_ips)
 }
@@ -297,10 +307,18 @@ EOT
     destination = "/${local.system_user}/accounts.txt"
   }
 
+  provisioner "file" {
+    content = <<-EOT
+${local.slurm_user}   ALL=(ALL)       NOPASSWD: ALL
+EOT
+    destination = "/tmp/91-${local.slurm_user}"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/mccheck /${local.system_user}/.ssh/rc",
       "sudo mv /tmp/mccheck /usr/local/bin/",
+      "sudo mv /tmp/91-${local.slurm_user} /etc/sudoers.d/"
     ]
   }
 }
