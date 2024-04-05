@@ -164,6 +164,12 @@ variable "cacao_whitelist_ips" {
   default = ""
 }
 
+variable "software_stack" {
+  type = string
+  description = "software stack to install; one of alliance, eessi, or empty (none)"
+  default = "alliance"
+}
+
 module "openstack" {
   source         = "./openstack"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
@@ -209,6 +215,8 @@ module "openstack" {
   guest_passwd = var.guest_users_password
 
   sudoer_username = local.system_user
+
+  software_stack = var.software_stack
 
   hieradata = <<-EOT
 %{ if length(local.cacao_whitelist_ips) > 0 }

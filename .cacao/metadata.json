@@ -121,7 +121,7 @@
     {
       "name": "guest_users_count",
       "type": "integer",
-      "default": 5,
+      "default": 0,
       "description": "Number of guest user accounts e.g. user1, user2",
       "editable": true
     },
@@ -135,7 +135,13 @@
       "name": "cacao_user_data",
       "type": "cacao_cloud_init",
       "description": "internally used, just to parse information for magic castle"
+    },
+    {
+      "name": "software_stack",
+      "type": "string",
+      "description": "magic castle software stack to use",
+      "default": "alliance",
+      "enum": ["alliance", "eessi", ""]
     }
-
   ]
 }
