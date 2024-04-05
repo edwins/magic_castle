@@ -94,6 +94,17 @@
                             "ui_label": "password for guest users"
                         }
                     ]
+                },
+                {
+                    "type": "advanced_settings",
+                    "collapsible": true,
+                    "title": "Advanced",
+                    "items": [
+                        {
+                            "name": "software_stack",
+                            "ui_label": "Software Stack"
+                        }
+                    ]
                 }
             ]
         }
