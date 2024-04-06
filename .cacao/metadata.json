@@ -139,7 +139,7 @@
     {
       "name": "software_stack",
       "type": "string",
-      "description": "magic castle software stack to use",
+      "description": "Software stack to install (see https://docs.jetstream-cloud.org/ui/cacao/deployment_magic_castle/)",
       "default": "alliance",
       "enum": ["alliance", "eessi", ""]
     }

@@ -102,7 +102,9 @@
                     "items": [
                         {
                             "name": "software_stack",
-                            "ui_label": "Software Stack"
+                            "ui_label": "Software Stack",
+                            "field_type": "select"
+
                         }
                     ]
                 }
