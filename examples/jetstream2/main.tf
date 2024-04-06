@@ -216,7 +216,7 @@ module "openstack" {
 
   sudoer_username = local.system_user
 
-  software_stack = var.software_stack
+  software_stack = local.software_stack
 
   hieradata = <<-EOT
 %{ if length(local.cacao_whitelist_ips) > 0 }
@@ -262,6 +262,7 @@ locals {
   slurm_user = "${local.system_user}_slurm"
   cacao_user_data_yaml = try(yamldecode(var.cacao_user_data), "")
   cacao_whitelist_ips = split(",", var.cacao_whitelist_ips)
+  software_stack = var.software_stack == "js2" ? "" : var.software_stack
 }
 
 resource "null_resource" "cacao_helper_scripts" {
