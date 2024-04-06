@@ -102,9 +102,8 @@
                     "items": [
                         {
                             "name": "software_stack",
-                            "ui_label": "Software Stack",
+                            "ui_label": "Software Stack, see https://docs.jetstream-cloud.org/ui/cacao/deployment_magic_castle/",
                             "field_type": "select"
-
                         }
                     ]
                 }
