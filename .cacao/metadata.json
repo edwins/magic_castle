@@ -100,6 +100,12 @@
       "editable": true
     },
     {
+      "name": "nfs_project_snapshot_id",
+      "type": "string",
+      "default": "",
+      "description": "Enter the project volume snapshot id (must be LVM, XFS-formatted); leave blank for no snapshot"
+    },
+    {
       "name": "project",
       "type": "cacao_provider_project",
       "description": "OpenStack Project ID"

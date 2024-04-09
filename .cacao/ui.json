@@ -101,6 +101,10 @@
                     "title": "Advanced",
                     "items": [
                         {
+                            "name": "nfs_project_snapshot_id",
+                            "ui_label": "Project Volume Snapshot ID, must be LVM/XFS (leave blank, if none)"
+                        },
+                        {
                             "name": "software_stack",
                             "ui_label": "Software Stack, see https://docs.jetstream-cloud.org/ui/cacao/deployment_magic_castle/",
                             "field_type": "select"

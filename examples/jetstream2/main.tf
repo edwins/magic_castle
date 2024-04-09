@@ -104,6 +104,12 @@ variable "nfs_scratch_size" {
   default = 100
 }
 
+variable "nfs_project_snapshot_id" {
+  type = string
+  description = "snapshot id to use for nfs project volume"
+  default = ""
+}
+
 variable "guest_users_count" {
   type = number
   description = "number of guest users"
@@ -173,7 +179,7 @@ module "openstack" {
   volumes = {
     nfs = {
       home     = { size = var.nfs_home_size }
-      project  = { size = var.nfs_project_size }
+      project  = { size = var.nfs_project_size, snapshot = local.nfs_project_snapshot_id}
       scratch  = { size = var.nfs_scratch_size }
     }
   }
@@ -235,6 +241,7 @@ locals {
   cacao_user_data_yaml = try(yamldecode(var.cacao_user_data), "")
   cacao_whitelist_ips = split(",", var.cacao_whitelist_ips)
   software_stack = var.software_stack == "js2" ? "" : var.software_stack
+  nfs_project_snapshot_id = var.nfs_project_snapshot_id == "" ? null : var.nfs_project_snapshot_id
 }
 
 resource "null_resource" "cacao_helper_scripts" {
