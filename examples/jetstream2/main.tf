@@ -134,31 +134,7 @@ variable "power_state" {
   default = "active"
 }
 
-# variable "cacao_user_data" {
-#   type = string
-#   description = "cloud init script; not currently used"
-#   default = ""
-# }
-
-variable "cacao_whitelist_ips" {
-  type = string
-  description = "comma-separated list of ips to whitelist to fail2ban"
-  default = ""
-}
-
-variable "cacao_whitelist_ips" {
-  type = string
-  description = "comma-separated list of ips to whitelist to fail2ban"
-  default = ""
-}
-
-variable "cacao_public_key" {
-  type = string
-  description = "cloud init script; not currently used"
-  default = ""
-}
-
-variable "cacao_public_key" {
+variable "cacao_user_data" {
   type = string
   description = "cloud init script; not currently used"
   default = ""
@@ -211,10 +187,6 @@ module "openstack" {
   public_keys = local.cacao_user_data_yaml.users[1].ssh_authorized_keys
 
   # generate_ssh_key = true
-
-  generate_ssh_key = true
-
-  generate_ssh_key = true
 
   nb_users = var.guest_users_count
   # Shared password, randomly chosen if blank
@@ -277,8 +249,10 @@ resource "null_resource" "cacao_helper_scripts" {
     module.openstack.public_ip
   ]
   connection {
+    type        = "ssh"
     user        = local.system_user
     host        = module.openstack.public_ip.login1
+  }
   provisioner "file" {
     content = <<-EOT
 #!/bin/bash
@@ -382,8 +356,12 @@ data "openstack_networking_subnet_v2" "subnet" {
 # module "dns" {
 #   source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare"
 #   name             = module.openstack.cluster_name
+#   domain           = module.openstack.domain
+#   bastions         = module.openstack.bastions
 #   public_instances = module.openstack.public_instances
 #   ssh_private_key  = module.openstack.ssh_private_key
+#   sudoer_username  = module.openstack.accounts.sudoer.username
+# }
 
 ## Uncomment to register your domain name with Google Cloud
 # module "dns" {

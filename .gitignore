@@ -9,7 +9,6 @@ venv
 releases/
 *dev/
 .terraform.lock.hcl
-site/
-_internal_notes.txt
 terraform.tfvars
-tmp/
+_internal_notes.txt
+tmp*
