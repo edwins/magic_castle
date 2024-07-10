@@ -155,7 +155,7 @@ variable "software_stack" {
 module "openstack" {
   source         = "./openstack"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-  config_version = "main"
+  config_version = "13.5.0"
 
   cluster_name = var.instance_name
   domain       = lower("${var.project}.${var.domain_name}")
