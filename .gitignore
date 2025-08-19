@@ -11,3 +11,4 @@ releases/
 .terraform.lock.hcl
 site/
 terraform.tfvars
+common/provision/files
