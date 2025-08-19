@@ -47,7 +47,7 @@ variable "pool" {
 variable "image_name" {
   type = string
   description = "string, name of image; image will have priority if both image and image name are provided"
-  default = "Featured-RockyLinux8"
+  default = "Featured-RockyLinux9"
 }
 
 variable "mgmt_flavor" {

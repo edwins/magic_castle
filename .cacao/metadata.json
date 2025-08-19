@@ -37,7 +37,7 @@
       "name": "image_name",
       "type": "cacao_provider_image_name",
       "description": "Boot image name",
-      "default": ""
+      "default": "Featured-RockyLinux9"
     },
     {
       "name": "mgmt_flavor",
