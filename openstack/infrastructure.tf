@@ -60,7 +60,6 @@ resource "openstack_compute_instance_v2" "instances" {
   name     = format("%s-%s", var.cluster_name, each.key)
   image_id = lookup(each.value, "disk_size", 10) > data.openstack_compute_flavor_v2.flavors[each.value.prefix].disk ? null : data.openstack_images_image_v2.image[each.value.prefix].id
 
-  key_pair = "edwin-dev"
   flavor_name  = each.value.type
   # user_data    = base64gzip(module.configuration.user_data[each.key])
   user_data    = module.configuration.user_data[each.key]
