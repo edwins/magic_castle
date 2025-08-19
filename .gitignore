@@ -10,3 +10,6 @@ releases/
 *dev/
 .terraform.lock.hcl
 site/
+terraform.tfvars
+common/provision/files
+*jetstream-cloud.org.txt

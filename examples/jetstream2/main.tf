@@ -1,12 +1,11 @@
 terraform {
-  required_version = ">= 1.4.0"
+  required_version = ">= 1.5.7"
   required_providers {
     openstack = {
-      source = "terraform-provider-openstack/openstack" # "terraform.cyverse.org/cyverse/openstack"
-      version = "3.0.0"
+      source = "terraform-provider-openstack/openstack"
+      version = ">= 1.50.0"
     }
-  }
-
+  } 
 }
 
 provider "openstack" {
@@ -156,7 +155,7 @@ variable "software_stack" {
 module "openstack" {
   source         = "./openstack"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-  config_version = "13.5.0"
+  config_version = "14.3.0"
 
   cluster_name = var.instance_name
   domain       = lower("${var.project}.${var.domain_name}")
