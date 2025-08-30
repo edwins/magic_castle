@@ -2,8 +2,7 @@ terraform {
   required_version = ">= 1.4.0"
   required_providers {
     openstack = {
-      source = "terraform-provider-openstack/openstack"
-      version = "3.0.0"
+      source = "terraform-provider-openstack/openstack" # "terraform.cyverse.org/cyverse/openstack"
     }
   }
 }
