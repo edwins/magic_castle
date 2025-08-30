@@ -350,6 +350,18 @@ data "openstack_networking_subnet_v2" "subnet" {
   ip_version = 4
 }
 
+resource "null_resource" "print_message" {
+  # The triggers block ensures the resource is always "changed"
+  # This forces the provisioner to run on every `terraform apply`
+  triggers = {
+    always_run = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = "echo 'HELLO TEST MESSAGE'"
+  }
+}
+
 
 ## Uncomment to register your domain name with CloudFlare
 # module "dns" {
