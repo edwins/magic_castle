@@ -94,6 +94,11 @@
           "title": "Advanced",
           "items": [
             {
+              "name": "image_name",
+              "ui_label": "Boot image name",
+              "parameters": [{ "key": "windows_disclaimer", "value": true }]
+            },
+            {
               "name": "nfs_project_snapshot_id",
               "ui_label": "Project Volume Snapshot ID, must be LVM/XFS (leave blank, if none)"
             },
