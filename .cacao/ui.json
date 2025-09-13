@@ -18,7 +18,6 @@
         {
           "name": "image_name",
           "ui_label": "Boot image name",
-          "default": "Featured-RockyLinux9",
           "parameters": [{ "key": "windows_disclaimer", "value": true }]
         },
         {
