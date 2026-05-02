@@ -1,10 +1,10 @@
 terraform {
-  required_version = ">= 1.4.0"
-  required_providers {
-    openstack = {
-      source = "terraform-provider-openstack/openstack" # "terraform.cyverse.org/cyverse/openstack"
-    }
-  }
+  required_version = ">= 1.5.7"
+  # required_providers {
+  #   openstack = {
+  #     source = "terraform-provider-openstack/openstack" # "terraform.cyverse.org/cyverse/openstack"
+  #   }
+  # }
 }
 
 provider "openstack" {
@@ -151,10 +151,15 @@ variable "software_stack" {
   default = "alliance"
 }
 
+variable "pool" {
+  description = "Slurm pool of compute nodes"
+  default     = []
+}
+
 module "openstack" {
   source         = "./openstack"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-  config_version = "13.5.0"
+  config_version = "15.4.1"
 
   cluster_name = var.instance_name
   domain       = lower("${var.project}.${var.domain_name}")
